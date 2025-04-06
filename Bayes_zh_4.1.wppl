@@ -1,0 +1,22 @@
+//Bayes ZH 4.1
+var kartya = function () {
+  var szin1 = randomInteger(4) + 1;    // 1=kőr,2=káró,3=treff,4=pikk --> véletlenül kiválaszjuk a színt
+  var figura1 = randomInteger(4) + 1;  // 1=jumbo,2=dáma,3=király,4=ász --> véletlenszerűen kiválasztjuk a figurát is
+  var szin2 = randomInteger(4) + 1; //ue a második lappal
+  var figura2 = randomInteger(4) + 1;
+
+  var huzas1 = [szin1, figura1]; //összepárosítjuk a lapokat: színeket a figurákkal
+  var huzas2 = [szin2, figura2];
+
+  // csak azt engedjük tovább a modellben: két lap nem azonos, és egyik lap nme kör a másik lap nem király
+  condition(
+    !(szin1 == szin2 && figura1 == figura2) &&
+    (!(szin1 == 1) || !(figura2 == 3)) &&
+    (!(szin2 == 1) || !(figura1 == 3))
+  );
+  return [huzas1, huzas2];
+};
+
+var eloszlas = Enumerate(kartya); //végigpróbálja az összes lehetséges értéket és kiszámolja az eloszlást
+
+viz.table(eloszlas);//ez az eredmény kiírva
